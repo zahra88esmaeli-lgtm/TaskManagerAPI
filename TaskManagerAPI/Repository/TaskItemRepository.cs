@@ -22,18 +22,17 @@ namespace TaskManagerAPI.Repository
 
         public async Task<List<TaskItem>> GetAllByUserIdAsync(int userId)
         {
-           var tasks=await _dbContext.TaskItems
-                .AsNoTracking()
-                .Where(t => t.UserId == userId).ToListAsync();
+            var tasks = await _dbContext.TaskItems
+                 .AsNoTracking()
+                 .Where(t => t.UserId == userId).OrderByDescending(t => t.Id).ToListAsync();
             return tasks;
         }
 
-        
         public async Task<TaskItem?> GetByIdAsync(int id, int userId)
         {
-          return await _dbContext.TaskItems
-                .FirstOrDefaultAsync(t =>  t.UserId == userId && t.Id == id);
-          
+            return await _dbContext.TaskItems
+                  .FirstOrDefaultAsync(t => t.UserId == userId && t.Id == id);
+
         }
 
         public async Task RemoveAsync(TaskItem taskItem)
@@ -45,9 +44,9 @@ namespace TaskManagerAPI.Repository
 
         public async Task UpdateAsync(TaskItem taskItem)
         {
-           _dbContext.TaskItems.Update(taskItem);
-           
-           await _dbContext.SaveChangesAsync();
+
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

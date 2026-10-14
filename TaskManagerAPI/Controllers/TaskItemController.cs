@@ -21,36 +21,57 @@ namespace TaskManagerAPI.Controllers
         public TaskItemController(ITaskItemRepository taskItemRepository)
         {
             _taskItemRepository = taskItemRepository;
-
         }
+        private bool TryGetUserId(out int userId) =>
+            int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
 
-        private int GetUserId() =>
-            int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        private static TaskItemRepositoryDto ToResponseDto(TaskItem task) => new()
+        {
+            Id = task.Id,
+            Title = task.Title,
+            Description = task.Description,
+            IsDone = task.IsDone
+        };
 
         [HttpGet]
         public async Task<IActionResult> GetAllTasks()
         {
-            var userId = GetUserId();
+            if (!TryGetUserId(out var userId)) return Unauthorized();
+
             var tasks = await _taskItemRepository.GetAllByUserIdAsync(userId);
-            return Ok(tasks);
+            return Ok(tasks.Select(ToResponseDto));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTask(int id)
+        {
+            if (!TryGetUserId(out var userId)) return Unauthorized();
+
+            var task = await _taskItemRepository.GetByIdAsync(id, userId);
+            if (task == null) return NotFound();
+
+            return Ok(ToResponseDto(task));
         }
         [HttpPost]
         public async Task<IActionResult> CreateTask(CreateTaskDto taskItem)
         {
+            if (!TryGetUserId(out var userId)) return Unauthorized();
             var task = new TaskItem
             {
                 Title = taskItem.Title,
                 Description = taskItem.Description,
                 IsDone = taskItem.IsDone,
-                UserId = GetUserId()
+                UserId = userId
             };
             await _taskItemRepository.CreateAsync(task);
-            return Ok(task);
+            return CreatedAtAction(nameof(GetTask), new { id = task.Id }, ToResponseDto(task));
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTask(int id, UpdateTaskDto dto   )
+        public async Task<IActionResult> UpdateTask(int id, UpdateTaskDto dto)
         {
-            var taskItem = await _taskItemRepository.GetByIdAsync(id, GetUserId());
+            if (!TryGetUserId(out var userId)) return Unauthorized();
+
+            var taskItem = await _taskItemRepository.GetByIdAsync(id, userId);
             if (taskItem == null)
             {
                 return NotFound();
@@ -61,19 +82,21 @@ namespace TaskManagerAPI.Controllers
             taskItem.IsDone = dto.IsDone;
 
             await _taskItemRepository.UpdateAsync(taskItem);
-            return Ok(taskItem);
+            return NoContent();
 
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            var task = await _taskItemRepository.GetByIdAsync(id, GetUserId());
+            if (!TryGetUserId(out var userId)) return Unauthorized();
+
+            var task = await _taskItemRepository.GetByIdAsync(id, userId);
             if (task == null)
             {
                 return NotFound();
             }
             await _taskItemRepository.RemoveAsync(task);
-            return Ok(task);
+            return NoContent();
         }
     }
 }

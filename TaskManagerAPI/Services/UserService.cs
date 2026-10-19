@@ -23,6 +23,8 @@ namespace TaskManagerAPI.Services
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
                 return new UserResult(false, "User not found");
+            if (!PasswordHasher.VerifyPassword(dto.CurrentPassword, user.HashPassword))
+                return new UserResult(false, "Current password is wrong");
             user.HashPassword = PasswordHasher.HashPassword(dto.NewPassword);
         
             await _userRepository.SaveChangesAsync();

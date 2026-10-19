@@ -40,7 +40,7 @@ namespace TaskManagerAPI.Controllers
 
 
         [Authorize]
-        [HttpPut("me/ChangePassword")]
+        [HttpPut("me")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
         {
              var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

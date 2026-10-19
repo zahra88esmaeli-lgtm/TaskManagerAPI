@@ -27,7 +27,7 @@ C#, ASP.NET Core Web API, Entity Framework Core, SQL Server, JWT
 |---|---|---|
 | POST | /api/user/register | No |
 | POST | /api/user/login | No |
-| PUT | /api/user/me/ChangePassword | Yes |
+| PUT | /api/user/me | Yes |
 | DELETE | /api/user/me | Yes |
 
 ### Tasks

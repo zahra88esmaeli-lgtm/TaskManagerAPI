@@ -69,3 +69,22 @@ Response: `201 Created`
 ## How user isolation works
 The user id is stored in the JWT token. The controller reads it from the token claims and passes it to the repository.
 Queries always filter by `UserId`, so a user who requests another user's task gets `404 Not Found`.
+
+
+## How to run
+
+**Requirements:** .NET 10 SDK, SQL Server LocalDB (installed with Visual Studio)
+
+```
+git clone https://github.com/zahra88esmaeli-lgtm/TaskManagerAPI.git
+cd TaskManagerAPI/TaskManagerAPI
+dotnet user-secrets init
+dotnet user-secrets set "Jwt:Key" "any-random-text-at-least-32-characters"
+dotnet tool install --global dotnet-ef
+dotnet ef database update
+dotnet run
+```
+
+- `Jwt:Key` must be at least **32 characters**, otherwise Login returns a 500 error.
+- The API usually runs at `http://localhost:5280` (check the `dotnet run` output).
+- Web front end for this API: [TaskManagerWeb](https://github.com/zahra88esmaeli-lgtm/TaskManagerWeb)

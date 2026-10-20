@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path="README.fa.md" />
     <File Path="README.md" />
   </Folder>
   <Project Path="TaskManagerAPI/TaskManagerAPI.csproj" />

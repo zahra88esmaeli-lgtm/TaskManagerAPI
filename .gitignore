@@ -480,5 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-Properties/serviceDependencies.json
-Properties/serviceDependencies.local.json
+
+**/serviceDependencies*.json
+
+

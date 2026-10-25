@@ -91,8 +91,6 @@ dotnet run
 
 ## Running the tests
 
-## Running the tests
-
 Run this command from the repository root (the folder that contains the `.slnx` file):
 
 ```

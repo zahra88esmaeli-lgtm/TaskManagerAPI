@@ -91,10 +91,17 @@ dotnet run
 
 ## Running the tests
 
-## Running the tests
-
-Run this command from the repository root (the folder that contains the `.slnx` file):
+The `TaskManagerAPI.Tests` project contains unit tests written with **xUnit** and **Moq**. Run this command from the repository root (the folder that contains the `.slnx` file):
 
 ```
 dotnet test
 ```
+
+### What is tested
+
+- **UserService:** register, login, change password, and delete user (success and failure cases)
+- **TaskItemController:** list, get, create, update, and delete tasks
+- When there is no logged-in user (no user id), the result is `Unauthorized`
+- Every task operation uses the **logged-in user's id**, so a user can only access their own tasks
+
+The repository is mocked in the tests, so no database is needed to run them.

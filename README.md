@@ -88,3 +88,13 @@ dotnet run
 - `Jwt:Key` must be at least **32 characters**, otherwise Login returns a 500 error.
 - The API usually runs at `http://localhost:5280` (check the `dotnet run` output).
 - Web front end for this API: [TaskManagerWeb](https://github.com/zahra88esmaeli-lgtm/TaskManagerWeb)
+
+## Running the tests
+
+## Running the tests
+
+Run this command from the repository root (the folder that contains the `.slnx` file):
+
+```
+dotnet test
+```

@@ -1,4 +1,5 @@
 # TaskManagerAPI
+<div dir="rtl">
 
 یک Web API برای مدیریت تسک‌ها با ASP.NET Core (.NET 10). هر کاربر ثبت‌نام می‌کند، وارد می‌شود و فقط تسک‌های **خودش** را می‌بیند.
 
@@ -57,3 +58,12 @@ Authorization: Bearer <token>
 ## رابط وب
 
 این API یک رابط وب دارد: [TaskManagerWeb](https://github.com/zahra88esmaeli-lgtm/TaskManagerWeb). اول API و بعد Web را اجرا کن.
+## اجرای تست‌ها
+
+از **پوشه‌ی اصلی** repository (همان پوشه‌ای که فایل `.slnx` داخلش است) این دستور را اجرا کنید:
+
+```
+dotnet test
+```
+
+</div>

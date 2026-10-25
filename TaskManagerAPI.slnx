@@ -3,5 +3,6 @@
     <File Path="README.fa.md" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="TaskManagerAPI.Tests/TaskManagerAPI.Tests.csproj" Id="8971fb4d-c848-4c10-9eb3-86231dd2ae1a" />
   <Project Path="TaskManagerAPI/TaskManagerAPI.csproj" />
 </Solution>

@@ -81,4 +81,19 @@ dotnet test
 
 Repository در تست‌ها mock شده است، بنابراین برای اجرای تست‌ها به دیتابیس نیازی نیست.
 
+### تست‌های Integration برای TaskItem
+
+کلاس `TaskItemIntegrationTests` اندپوینت‌های TaskItem را به‌صورت کامل (end to end) با `WebApplicationFactory` و دیتابیس InMemory تست می‌کند. این موارد بررسی می‌شود:
+
+- ساخت تسک با توکن معتبر، `201 Created` برمی‌گرداند
+- دریافت تسک‌ها بدون توکن، `401 Unauthorized` برمی‌گرداند
+- تسکِ ساخته‌شده دوباره قابل خواندن است
+- کاربر B نمی‌تواند تسک‌های کاربر A را ببیند
+
+اجرای فقط همین تست‌ها:
+
+```bash
+dotnet test --filter "FullyQualifiedName~TaskItemIntegrationTests"
+```
+
 </div>

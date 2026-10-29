@@ -105,3 +105,18 @@ dotnet test
 - Every task operation uses the **logged-in user's id**, so a user can only access their own tasks
 
 The repository is mocked in the tests, so no database is needed to run them.
+
+### TaskItem integration tests
+
+`TaskItemIntegrationTests` tests the TaskItem endpoints end to end, using `WebApplicationFactory` and an in-memory database. It checks that:
+
+- Creating a task with a valid token returns `201 Created`
+- Getting tasks without a token returns `401 Unauthorized`
+- A created task can be read back
+- User B cannot see User A's tasks
+
+Run only these tests:
+
+```bash
+dotnet test --filter "FullyQualifiedName~TaskItemIntegrationTests"
+```
